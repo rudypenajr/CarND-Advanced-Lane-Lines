@@ -2,9 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2acdff9a-f75d-4899-a1e9-69d7d66e8968" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output_images/snap_threholding_straight_lines1.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output_images/snap_undistorted_chessboard.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output_images/snap_undistorted_straight_lines2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/output_images/undistorted_straight_lines2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Project 4 - Step 2-checkpoint.ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Color Spaces (Lesson 28).ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codebase/.ipynb_checkpoints/Project 4 - Step 2-checkpoint.ipynb" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codebase/GradientThresholder.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codebase/Project 4 - Step 2.ipynb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/writeup_template_final.md" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Color Spaces-checkpoint.ipynb" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Color Spaces.ipynb" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Color Spaces.ipynb" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/Color Spaces (Lesson 28)-checkpoint.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gradients (Lessons 19~24) - Test5 Image.ipynb" afterPath="$PROJECT_DIR$/Gradients (Lessons 19~24) - Test5 Image.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codebase/.ipynb_checkpoints/Project 4 - Advanced Lane Finding-checkpoint.ipynb" afterPath="$PROJECT_DIR$/codebase/.ipynb_checkpoints/Project 4 - Advanced Lane Finding-checkpoint.ipynb" />
