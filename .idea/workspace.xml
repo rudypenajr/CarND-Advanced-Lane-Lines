@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2acdff9a-f75d-4899-a1e9-69d7d66e8968" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codebase/Undistorter.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codebase/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/codebase/GradientThresholder.py" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.ipynb_checkpoints/Color Spaces-checkpoint.ipynb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Color Spaces.ipynb" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Undistort (Lesson 4).ipynb" afterPath="$PROJECT_DIR$/Undistort (Lesson 4).ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gradients (Lessons 19~24) - Test5 Image.ipynb" afterPath="$PROJECT_DIR$/Gradients (Lessons 19~24) - Test5 Image.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codebase/.ipynb_checkpoints/Project 4 - Advanced Lane Finding-checkpoint.ipynb" afterPath="$PROJECT_DIR$/codebase/.ipynb_checkpoints/Project 4 - Advanced Lane Finding-checkpoint.ipynb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/codebase/Project 4 - Advanced Lane Finding.ipynb" afterPath="$PROJECT_DIR$/codebase/Project 4 - Advanced Lane Finding.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,8 +26,8 @@
       <file leaf-file-name="Undistorter.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/codebase/Undistorter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+            <state relative-caret-position="238">
+              <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -43,6 +46,7 @@
         <option value="$PROJECT_DIR$/codebase/Calibration.py" />
         <option value="$PROJECT_DIR$/codebase/UndistortVisuals.py" />
         <option value="$PROJECT_DIR$/codebase/Undistorter.py" />
+        <option value="$PROJECT_DIR$/codebase/GradientThresholder.py" />
       </list>
     </option>
   </component>
@@ -53,10 +57,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="17" />
+    <option name="x" value="763" />
     <option name="y" value="22" />
-    <option name="width" value="1407" />
-    <option name="height" value="1150" />
+    <option name="width" value="917" />
+    <option name="height" value="980" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -341,10 +345,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="17" y="22" width="1407" height="1150" extended-state="0" />
-    <editor active="false" />
+    <frame x="763" y="22" width="917" height="980" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30769232" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3165034" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -371,7 +375,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="4" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -383,10 +389,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/codebase/GradientThresholder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="73" column="44" lean-forward="true" selection-start-line="73" selection-start-column="44" selection-end-line="73" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/codebase/Undistorter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="31" lean-forward="true" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
+        <state relative-caret-position="238">
+          <caret line="14" column="29" lean-forward="true" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
