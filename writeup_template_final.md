@@ -67,13 +67,13 @@ The Straight Lane Lines Image is the best example of showing the undistortion of
 
 ###Pipeline (single images)
 
-####1. Provide an example of a distortion-corrected image.
+#### 1. Provide an example of a distortion-corrected image.
 
 I believe I answered this with the previous (1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image).
 
 --- 
 
-####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
+#### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
 I used a combination of gradient and color thresholds to generate a binar image (threshold steps are located in `codebase/Project 4 - Advanced Lane Finding.ipynb`, cells 5 - 10. Similar to the calibration step, I made a Python Class for the creation of a binary image, which is located 
 at `codebase/GradientThresholder.py`. 
@@ -88,24 +88,15 @@ HSV makes more sense to me in this situation because tt allows us to filter much
 
 --- 
 
-####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+#### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+===
+The code for my perspective transform includes:
 
-```
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
+* File: `codebase/Project 4 - Advanced Lane Finding.ipynb` - Cell #11
+* File: `codebase/PerspectiveTransform.py` - The `__init__` method creates the perspective transform matrix (`getPerspectiveTransform()`), which will be used by the `warp` function. The `warp` function actually returns the warped image by using `cv2.warpPerspective()`.
 
-```
-This resulted in the following source and destination points:
+I utilized source and destinations points provided by Udacity.
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
@@ -114,11 +105,12 @@ This resulted in the following source and destination points:
 | 1127, 720     | 960, 720      |
 | 695, 460      | 960, 0        |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+**Warped:**
+![Warped](./output_images/warped_straight_lines1.jpg)
 
-![alt text][image4]
+---
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+#### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
