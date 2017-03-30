@@ -9,6 +9,8 @@ class FindingLaneLines:
         self.nwindows = 9
         self.margin = 100
         self.minpix = 50
+        self.ym_per_pix = 30 / 720  # meters per pixel in y dimension
+        self.xm_per_pix = 3.7 / 700  # meters per pixel in x dimension
 
     def histogram(self, img):
         # Take a histogram of the bottom half of the image
@@ -33,6 +35,8 @@ class FindingLaneLines:
         return nonzero, nonzeroy, nonzerox
 
     def detect_lane_lines(self, img):
+        # Assuming you have created a warped binary image
+        # Take a historgram of the bottom half of the image
         histogram = self.histogram(img)
 
         # Output Image
@@ -97,37 +101,52 @@ class FindingLaneLines:
         righty = nonzeroy[right_lane_inds]
 
         # Fit a second order polynomial to each
-        self.left_fit = np.polyfit(lefty, leftx, 2)
-        self.right_fit = np.polyfit(righty, rightx, 2)
+        left_fit = np.polyfit(lefty, leftx, 2)
+        right_fit = np.polyfit(righty, rightx, 2)
+        self.left_fit = left_fit
+        self.right_fit = right_fit
 
         return left_lane_inds, right_lane_inds, self.left_fit, self.right_fit
 
-    def measure_curvature(self, image):
+    def get_curvature(self,image):
+        # Fit a second order polynomial to pixel positions in each fake lane line
+        # Define conversions in x and y from pixels space to meters
+        ym_per_pix = self.ym_per_pix# meters per pixel in y dimension
+        xm_per_pix = self.xm_per_pix# meters per pixel in x dimension
+
+        height = image.shape[0]
+        width  = image.shape[1]
         left_fit = self.left_fit
         right_fit = self.right_fit
 
-        ym_per_pix = 30 / 720  # meters per pixel in y dimension
-        xm_per_pix = 3.7 / 700  # meters per pixel in x dimension
+        # print(left_fit)
 
-        height = image.shape[0]
-        width = image.shape[1]
-
-        # Generate some fake data to represent lane-line pixels
-        ploty = np.linspace(0, height-1, height)
+        #Create fake points in image space
+        ploty = np.linspace(0,height-1,height)
         y_eval = np.max(ploty)
 
-        # For each y position generate random x position within +/-50 pix
-        # of the line base position in each case (x=200 for left, and x=900 for right)
-        leftx = left_fit[0] * ploty ** 2 + left_fit[1] * ploty + left_fit[2]
-        rightx = right_fit[0] * ploty ** 2 + right_fit[1] * ploty + right_fit[2]
+        leftx= left_fit[0] * ploty ** 2 + left_fit[1] * ploty + left_fit[2]
+        rightx= right_fit[0] * ploty ** 2 + right_fit[1] * ploty + right_fit[2]
 
-        # leftx = leftx[::-1]  # Reverse to match top-to-bottom in y
-        # rightx = rightx[::-1]  # Reverse to match top-to-bottom in y
+        # Fit new polynomials to x,y in world space by scaling
+        left_fit_cr = np.polyfit(ploty*ym_per_pix, leftx*xm_per_pix, 2)
+        right_fit_cr = np.polyfit(ploty*ym_per_pix, rightx*xm_per_pix, 2)
+        # Calculate the new radii of curvature
+        left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
+        right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
+        # Now our radius of curvature is in meters
+        print(left_curverad, 'm', right_curverad, 'm')
+        # 13630.6256701 10334.2163257
 
-        # Fit a second order polynomial to pixel positions in each fake lane line
-        left_fit = np.polyfit(ploty, leftx, 2)
-        left_fitx = left_fit[0] * ploty ** 2 + left_fit[1] * ploty + left_fit[2]
-        right_fit = np.polyfit(ploty, rightx, 2)
-        right_fitx = right_fit[0] * ploty ** 2 + right_fit[1] * ploty + right_fit[2]
+        return left_curverad, right_curverad
 
-        return leftx, rightx, left_fitx, right_fitx
+
+    def get_car_offset(self, img):
+        # get left and right lane positions at bottom of image
+        lane_leftx = self.left_fit[0] * (img.shape[0] - 1) ** 2 + self.left_fit[1] * (img.shape[0] - 1) + self.left_fit[
+            2]
+        lane_rightx = self.right_fit[0] * (img.shape[0] - 1) ** 2 + self.right_fit[1] * (img.shape[0] - 1) + \
+                      self.right_fit[2]
+        car_offset = ((img.shape[1] / 2) - ((lane_leftx + lane_rightx) / 2)) * self.xm_per_pix
+
+        return car_offset
