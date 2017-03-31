@@ -30,15 +30,15 @@ The goals / steps of this project are the following:
 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
+### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.
 
 ### Camera Calibration
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained the `codebase/Project 4 - Advanced Lane Finding.ipynb`, cells 2 - 4. 
+The code for this step is contained the `codebase/Project 4 - Advanced Lane Finding.ipynb`, cells 2 - 4.
 
-I computed the camera matrix and distortion coeffients based off what was taught on Lessons 3 - 11. You can see the majority of my notes and teachings being implemented in `Undistort (Lesson 4).ipynb`. 
+I computed the camera matrix and distortion coeffients based off what was taught on Lessons 3 - 11. You can see the majority of my notes and teachings being implemented in `Undistort (Lesson 4).ipynb`.
 
 When it came to the project, I thought it best to move it to a Python Class, which can be found in `codebase/Undistorter.py`. I start off the `__init__` method by searching for appropriate `.npy` files, which is just a binary file holding a saved array. In the case of the `Undistorter.py`, the separate `.npy` files hold the `objpoints`, `imgpoints`, and `shape`, which we need when we `cv2.calibratCamera()`. If those files are not found, then we go into our `find_corners` method which does the following:
 
@@ -46,7 +46,7 @@ When it came to the project, I thought it best to move it to a Python Class, whi
 * Prepare the "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming that the chessboard is fixed on the (x, y) place at z=0, such that the object poionts are the same for each calibration image. So `objp` is just a replicated array of cooridnates, and `self.objpoints` will be append with a copy of it every time I successfully detect all chessboard coarners in a trest image.
 * Prepare `self.imgpoints` which will be appended with the (x, y) pixel position of each of the corners in the image place with each successful chessboard detection.
 
-Once `find_corners` is completed, we have `self.objpoints`, `self.imgpoints`, and `self.shape`, meaning we can now compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function. 
+Once `find_corners` is completed, we have `self.objpoints`, `self.imgpoints`, and `self.shape`, meaning we can now compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.
 
 **Chessboard:**
 ![Undistorted Chessboard](./output_images/snap_undistorted_chessboard.jpg)
@@ -65,22 +65,22 @@ The Straight Lane Lines Image is the best example of showing the undistortion of
 
 I believe I answered this with the previous (1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image).
 
---- 
+---
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of gradient and color thresholds to generate a binar image (threshold steps are located in `codebase/Project 4 - Advanced Lane Finding.ipynb`, cells 5 - 10. Similar to the calibration step, I made a Python Class for the creation of a binary image, which is located 
-at `codebase/GradientThresholder.py`. 
+I used a combination of gradient and color thresholds to generate a binar image (threshold steps are located in `codebase/Project 4 - Advanced Lane Finding.ipynb`, cells 5 - 10. Similar to the calibration step, I made a Python Class for the creation of a binary image, which is located
+at `codebase/GradientThresholder.py`.
 
 * `codebase/GradientThresholder.py` incorporates a magnitude and direction threshold function. I went about also refactoring majority of the duplicate code, such as `grayscaling` of an image.
-* `codebase/GradientThresholder.py` also contains something I found as I was researching color spaces. Mehdi Sqalli had a very good write up on [color thresholding](codebase/GradientThresholder.py). This also helped validate my usage of the HSV color space versus the HLS. Our lesson kind of touched on this but I feel this could be a whole semester to truly understand color spaces and the effects on imagery. 
+* `codebase/GradientThresholder.py` also contains something I found as I was researching color spaces. Mehdi Sqalli had a very good write up on [color thresholding](codebase/GradientThresholder.py). This also helped validate my usage of the HSV color space versus the HLS. Our lesson kind of touched on this but I feel this could be a whole semester to truly understand color spaces and the effects on imagery.
 
 HSV makes more sense to me in this situation because it allows us to filter much more easily by focusing on the hue and saturation of the pixel (which color it is and how intense the color is), and not so much on its value (how dark it is), thus handling shadows and overall worse lighting conditions much more easily. So if we want to focus on yellow and/or white lines, HSV allows us that capability.
 
 **Threholding:**
 ![Thresholding](./output_images/snap_threholding_straight_lines1.png)
 
---- 
+---
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 The code for my perspective transform includes:
@@ -90,9 +90,9 @@ The code for my perspective transform includes:
 
 I utilized source and destinations points provided by Udacity.
 
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
+| Source        | Destination   |
+|:-------------:|:-------------:|
+| 585, 460      | 320, 0        |
 | 203, 720      | 320, 720      |
 | 1127, 720     | 960, 720      |
 | 695, 460      | 960, 0        |
@@ -124,7 +124,7 @@ Now those the curve-fitted lanes can be projected back onto the original image. 
 * Inverse perspective transformation matrix (`codebase/PerspectiveTransform.py`, Line 14).
 * The gist of the code can be found in `codebase/LaneDrawer.py`, method name `plotPolygon`, which overlay the curve fit lines using OpenCV's `addWeighted`.
 
---- 
+---
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -139,7 +139,7 @@ Once I had located the lane line pixels, I used their x and y pixel positions to
 I went about fitting for f(y) because the lane lines in the warped image are nearly vertical, which could have the same x value for more than one y value.
 
 ##### Radius of Curvature
-As for the radius of the curvature, that was caclulated with the forumula provided in Lesson 35. 
+As for the radius of the curvature, that was caclulated with the forumula provided in Lesson 35.
 
 `Rcurve = ( (1 + (2Ay + B)^2)^1.5) / abs(2A) )`
 
