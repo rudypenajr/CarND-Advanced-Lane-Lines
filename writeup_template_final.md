@@ -33,8 +33,6 @@ The goals / steps of this project are the following:
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-===
-
 The code for this step is contained the `codebase/Project 4 - Advanced Lane Finding.ipynb`, cells 2 - 4. 
 
 I computed the camera matrix and distortion coeffients based off what was taught on Lessons 3 - 11. You can see the majority of my notes and teachings being implemented in `Undistort (Lesson 4).ipynb`. 
@@ -74,7 +72,7 @@ at `codebase/GradientThresholder.py`.
 * `codebase/GradientThresholder.py` incorporates a magnitude and direction threshold function. I went about also refactoring majority of the duplicate code, such as `grayscaling` of an image.
 * `codebase/GradientThresholder.py` also contains something I found as I was researching color spaces. Mehdi Sqalli had a very good write up on [color thresholding](codebase/GradientThresholder.py). This also helped validate my usage of the HSV color space versus the HLS. Our lesson kind of touched on this but I feel this could be a whole semester to truly understand color spaces and the effects on imagery. 
 
-HSV makes more sense to me in this situation because tt allows us to filter much more easily by focusing on the hue and saturation of the pixel (which color it is and how intense the color is), and not so much on its value (how dark it is), thus handling shadows and overall worse lighting conditions much more easily. So if we want to focus on yellow and/or white lines, HSV allows us that capability.
+HSV makes more sense to me in this situation because it allows us to filter much more easily by focusing on the hue and saturation of the pixel (which color it is and how intense the color is), and not so much on its value (how dark it is), thus handling shadows and overall worse lighting conditions much more easily. So if we want to focus on yellow and/or white lines, HSV allows us that capability.
 
 **Threholding:**
 ![Thresholding](./output_images/snap_threholding_straight_lines1.png)
@@ -134,17 +132,17 @@ Once I had located the lane line pixels, I used their x and y pixel positions to
 
 `f(y) = A(y**2) + By + C`
 
-**f(y) vs. f(x)**
+##### f(y) vs. f(x)
 I went about fitting for f(y) because the lane lines in the warped image are nearly vertical, which could have the same x value for more than one y value.
 
-**Radius of Curvature**
+##### Radius of Curvature
 As for the radius of the curvature, that was caclulated with the forumula provided in Lesson 35. 
 
 `Rcurve = ( (1 + (2Ay + B)^2)^1.5) / abs(2A) )`
 
 Y-values from the image increase from top to bottom. If we want to measure the radius of curvature closest to your vehicle, you could evalute the formula above at the y-value corresponding to the bottom of the image.
 
-**Position Offset**
+##### Position Offset
 This is calculated by the distance between `(left_lane_position + right_lane_position) / 2`.
 
 ---
@@ -162,7 +160,7 @@ All implementation can be found in `codebase/LaneTracker.py`. That file has esse
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's the [final result](../project_video_out.mp4).
+The final result is located in `../project_video_out.mp4`.
 
 ---
 
