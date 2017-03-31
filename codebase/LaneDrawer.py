@@ -17,12 +17,12 @@ class LaneDrawer():
         pts_right = np.array([np.flipud(np.transpose(np.vstack([right_fitx, fity])))])
         pts = np.hstack((pts_left, pts_right))
         pts = np.array(pts, dtype=np.int32)
-
         color_warp = np.zeros_like(undist_img).astype(np.uint8)
         cv2.fillPoly(color_warp, pts, self.poly_color)
 
         # Warp the blank back to original image space using inverse perspective matrix (Minv)
         newwarp = cv2.warpPerspective(color_warp, Minv, (undist_img.shape[1], undist_img.shape[0]))
+
         # Combine the result with the original image
         result = cv2.addWeighted(undist_img, 1, newwarp, self.alpha, 0)
 

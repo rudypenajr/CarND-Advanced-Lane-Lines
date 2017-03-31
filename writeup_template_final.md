@@ -89,8 +89,6 @@ HSV makes more sense to me in this situation because tt allows us to filter much
 --- 
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
-
-===
 The code for my perspective transform includes:
 
 * File: `codebase/Project 4 - Advanced Lane Finding.ipynb` - Cell #11
@@ -111,20 +109,59 @@ I utilized source and destinations points provided by Udacity.
 ---
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+My approach was based on the sliding window approach (introduced in Lesson 33) to identify and fit the curve to the lane. The code for the sliding window approach includes:
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+* File: `codebase/Project 4 - Advanced Lane Finding.ipynb` - Cell #12 - 15
+* File: `codebase/FindingLaneLines.py`.
 
-![alt text][image5]
+##### Steps:
+* I computed a histogram of the warped image to find position of each line. Within `FindingLaneLines.py`, the function `histogram` will return you an array that is able to be plotted within a histogram. The function `find_peaks` will return you the left and right peaks as well as the midpoint betwen those two peaks.
+![Histogram](./output_images/final_histogram.jpg)
+* Then within `detect_lane_lines` (within `FindingLaneLines.py`), we run our sliding window implementation to detect the position of the center of each lane line on each part of the image.
+* After all the non-zero point locations in each window (with in the search margin) are collected, a second order polynomial is fit for the data points to identify a global curve (lane) which fits the data.
+![Plotting](./output_images/final_plotting.jpg)
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+Now those the curve-fitted lanes can be projected back onto the original image. The code for this can be found in:
 
-I did this in lines # through # in my code in `my_other_file.py`
+* File: `codebase/Project 4 - Advanced Lane Finding.ipynb` - Cell #16-17
+* File: `codebase/LaneDrawer.py`.
 
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+##### Steps:
+* Inverse perspective transformation matrix (`codebase/PerspectiveTransform.py`, Line 14).
+* The gist of the code can be found in `codebase/LaneDrawer.py`, method name `plotPolygon`, which overlay the curve fit lines using OpenCV's `addWeighted`.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+--- 
 
-![alt text][image6]
+#### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+
+* File: `codebase/FindingLaneLines.py`.
+* File: `codebase/LaneTracker.py`.
+
+Once I had located the lane line pixels, I used their x and y pixel positions to fit a second order polynomial curve:
+
+`f(y) = A(y**2) + By + C`
+
+**f(y) vs. f(x)**
+I went about fitting for f(y) because the lane lines in the warped image are nearly vertical, which could have the same x value for more than one y value.
+
+**Radius of Curvature**
+As for the radius of the curvature, that was caclulated with the forumula provided in Lesson 35. 
+
+`Rcurve = ( (1 + (2Ay + B)^2)^1.5) / abs(2A) )`
+
+Y-values from the image increase from top to bottom. If we want to measure the radius of curvature closest to your vehicle, you could evalute the formula above at the y-value corresponding to the bottom of the image.
+
+**Position Offset**
+This is calculated by the distance between `(left_lane_position + right_lane_position) / 2`.
+
+---
+
+#### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
+
+All implementation can be found in `codebase/LaneTracker.py`. That file has essentially everything I did within - `codebase/Project 4 - Advanced Lane Finding.ipynb`, just condensed to successfully create the video.
+
+
+![Final Image with Plotting](./output_images/final_straight_lines1-single.jpg)
 
 ---
 
@@ -132,7 +169,7 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's the [final result](../project_video_out.mp4).
 
 ---
 
@@ -140,5 +177,7 @@ Here's a [link to my video result](./project_video.mp4)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+Initially, the polygon was going out of the lane bounds so that took me a while to figure out. That lead me to toy more with the thresholding. Thresholding feels like a double edge sword after this project. It seems to like it can work really great but can also work against you if you haven't find the right threshold. One clue that helped really get me on the right path was the introduction of the yellow and white masking in HSV to improve lane detection. That kind of blew my mind because we have been so focused on grayscaling and specific color domains that I didn't think to focus on the actual necessary colors. I could see this being a problem in the future though. During construction, the white lines could be tarred out, so this method may not work as great as it does now. Weather conditions could also hinder this type of implementation.
+
+Overall, I really enjoyed this project. Fortuntaly, last week I took an O'Reilly course on Python, so it really helped me understand Python much more and focus my code to move more to a Class oriented implementation. The buggy part for me as when you fix something in the codebase, you would have to "replay" the entire Jupyter Notebook.
 

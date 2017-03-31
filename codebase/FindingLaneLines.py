@@ -108,7 +108,7 @@ class FindingLaneLines:
 
         return left_lane_inds, right_lane_inds, self.left_fit, self.right_fit
 
-    def get_curvature(self,image):
+    def get_curvature(self, image):
         # Fit a second order polynomial to pixel positions in each fake lane line
         # Define conversions in x and y from pixels space to meters
         ym_per_pix = self.ym_per_pix# meters per pixel in y dimension
@@ -119,9 +119,7 @@ class FindingLaneLines:
         left_fit = self.left_fit
         right_fit = self.right_fit
 
-        # print(left_fit)
-
-        #Create fake points in image space
+        # Create fake points in Image Space
         ploty = np.linspace(0,height-1,height)
         y_eval = np.max(ploty)
 
@@ -131,15 +129,14 @@ class FindingLaneLines:
         # Fit new polynomials to x,y in world space by scaling
         left_fit_cr = np.polyfit(ploty*ym_per_pix, leftx*xm_per_pix, 2)
         right_fit_cr = np.polyfit(ploty*ym_per_pix, rightx*xm_per_pix, 2)
+
         # Calculate the new radii of curvature
         left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
         right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
+
         # Now our radius of curvature is in meters
-        print(left_curverad, 'm', right_curverad, 'm')
-        # 13630.6256701 10334.2163257
-
+        # print(left_curverad, 'm', right_curverad, 'm')
         return left_curverad, right_curverad
-
 
     def get_car_offset(self, img):
         # get left and right lane positions at bottom of image
