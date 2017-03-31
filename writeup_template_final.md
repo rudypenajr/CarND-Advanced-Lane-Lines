@@ -16,15 +16,18 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-[//]: # (Image References)
+**Referenced Code Index:** All the code for the project can be found in the `codebase` directory.
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+| File          | Description   |
+| ------------- |:-------------:|
+| `codebase/Project 4 - Advanced Lane Finding.ipynb` | Project walkthrough illustrating steps for completing image processing pipeline. |
+| `codebase/Undistorter.py`                          | Camera Calibration Class      |
+| `codebase/GradientThresholder.py`                  | Gradient and Color Thresholding Class      |
+| `codebase/PerspectiveTransform.py`                 | Perspective Transform Class      |
+| `codebase/FindingLaneLines.py`                     | Finding Lane Lines Class |
+| `codebase/LaneDrawer.py`                           | Plot Polygon Class      |
+| `codebase/LaneTracker.py`                          | Image Processing Pipeline Class      |
+
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
