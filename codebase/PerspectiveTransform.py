@@ -14,6 +14,8 @@ class PerspectiveTransform:
         # Get the inverse perspective transformation matrix
         self.Minv = cv2.getPerspectiveTransform(dst_pts, src_pts)
 
+    # Reference:
+    # http://docs.opencv.org/3.1.0/da/d6e/tutorial_py_geometric_transformations.html
     def warp(self, img):
         img_size = (img.shape[1], img.shape[0])
         warp = cv2.warpPerspective(img, self.M, img_size, flags=cv2.INTER_LINEAR)
