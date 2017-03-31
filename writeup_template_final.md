@@ -58,7 +58,7 @@ The Straight Lane Lines Image is the best example of showing the undistortion of
 ---
 
 
-###Pipeline (single images)
+### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
 
