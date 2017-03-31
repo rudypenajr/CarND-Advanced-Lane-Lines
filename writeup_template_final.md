@@ -158,17 +158,17 @@ All implementation can be found in `codebase/LaneTracker.py`. That file has esse
 
 ---
 
-###Pipeline (video)
+### Pipeline (video)
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's the [final result](../project_video_out.mp4).
 
 ---
 
-###Discussion
+### Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
+#### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Initially, the polygon was going out of the lane bounds so that took me a while to figure out. That lead me to toy more with the thresholding. Thresholding feels like a double edge sword after this project. It seems to like it can work really great but can also work against you if you haven't find the right threshold. One clue that helped really get me on the right path was the introduction of the yellow and white masking in HSV to improve lane detection. That kind of blew my mind because we have been so focused on grayscaling and specific color domains that I didn't think to focus on the actual necessary colors. I could see this being a problem in the future though. During construction, the white lines could be tarred out, so this method may not work as great as it does now. Weather conditions could also hinder this type of implementation.
 
